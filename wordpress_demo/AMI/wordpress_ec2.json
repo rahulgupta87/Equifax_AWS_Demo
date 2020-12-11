@@ -1,0 +1,25 @@
+{
+    "builders": [
+        {
+            "type": "amazon-ebs",
+            "ami_name": "wordpress_ec2",
+            "ami_description": "master node for postgreSQL RDS",
+            "instance_type": "t2.micro",
+            "source_ami": "ami-0a91cd140a1fc148a",
+            "ssh_username": "ubuntu"
+        }
+    ],
+    "provisioners":[
+        {
+            "type": "shell",
+            "inline": [
+                "sudo yum install -y httpd",
+                "sudo service httpd start",
+                "wget https://wordpress.org/latest.tar.gz",
+                "tar -xzf latest.tar.gz",
+                "cd wordpress",
+                "cp wp-config-sample.php wp-config.php"
+            ]
+        }   
+    ]
+}
